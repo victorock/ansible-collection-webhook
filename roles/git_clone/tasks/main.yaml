@@ -1,16 +1,16 @@
 ---
-- name: "git: Create temporary folder"
+- name: "git_clone: Create temporary folder"
   run_once: true
   tempfile:
     state: directory
     suffix: git_tempfile
   register: r_git_tempfile
 
-- name: "git: Set git_store"
+- name: "git_clone: Set git_store"
   set_fact:
     git_store: "{{ r_tempfile_tower_import.path }}"
 
-- name: "git: Generate key_file"
+- name: "git_clone: Generate key_file"
   run_once: true
   blockinfile:
     block: "{{ git_deploy_key }}"
@@ -18,7 +18,7 @@
     mode: 0600
     create: true
 
-- name: "git: Clone repository"
+- name: "git_clone: Clone repository"
   run_once: true
   git:
     accept_hostkey: true

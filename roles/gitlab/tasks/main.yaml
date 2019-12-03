@@ -1,10 +1,14 @@
 ---
-- name: "launch: load spec file in 'tower_spec'"
+- name: "gitlab: git_clone"
+  include_role:
+    name: "git"
+
+- name: "gitlab: load spec file in 'tower_spec'"
   include_vars:
     file: "{{ git_store }}/.tower.yaml"
     name: "tower_spec"
 
-- name: "tower: Launch Pipeline"
+- name: "gitlab: Launch Pipeline"
   run_once: true
   tower_workflow_launch:
     name: "{{ pipeline.name }}"

@@ -1,0 +1,7 @@
+---
+- name: "Launch Pipeline based on github webhook"
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - github

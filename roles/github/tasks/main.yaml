@@ -1,0 +1,17 @@
+---
+- name: "github: git_clone"
+  include_role:
+    name: "git"
+
+- name: "github: load spec file in 'tower_spec'"
+  include_vars:
+    file: "{{ git_store }}/.tower.yaml"
+    name: "tower_spec"
+
+- name: "github: Launch Pipeline"
+  run_once: true
+  tower_workflow_launch:
+    name: "{{ pipeline.name }}"
+  loop: "{{ tower_spec.pipelines | selectattr('on', tower_webhook_payload.action) | default([]) }}"
+  loop_control:
+    loop_var: "pipeline"
