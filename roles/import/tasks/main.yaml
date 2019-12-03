@@ -1,0 +1,41 @@
+---
+- name: "import: load spec file in 'tower_spec'"
+  include_vars:
+    file: "{{ git_store }}/.tower.yaml"
+    name: "tower_spec"
+
+- name: "import: credentials"
+  tower_credential: "{{ tower_credential }}"
+  loop: "{{ tower_spec.credentials | default([]) }}"
+  loop_control:
+    loop_var: tower_credential
+
+- name: "import: inventories"
+  tower_inventory: "{{ tower_inventory }}"
+  loop: "{{ tower_spec.inventories | default([]) }}"
+  loop_control:
+    loop_var: tower_inventory
+
+- name: "import: hosts"
+  tower_host: "{{ tower_host }}"
+  loop: "{{ tower_spec.hosts | default([]) }}"
+  loop_control:
+    loop_var: "tower_host"
+
+- name: "import: projects"
+  tower_project: "{{ tower_project }}"
+  loop: "{{ tower_spec.projects | default([]) }}"
+  loop_control:
+    loop_var: "tower_project"
+
+- name: "import: job_templates"
+  tower_job_template: "{{ tower_job_template }}"
+  loop: "{{ tower_spec.job_templates | default([]) }}"
+  loop_control:
+    loop_var: "tower_job_template"
+
+- name: "import: workflows"
+  tower_workflow_template: "{{ tower_workflow_template }}"
+  loop: "{{ tower_spec.workflows | default([]) }}"
+  loop_control:
+    loop_var: tower_workflow_template

@@ -1,0 +1,19 @@
+---
+namespace: "victorock"
+name: "webhook_handler"
+version: "0.0.1"
+readme: "README.md"
+authors:
+    - "Victor da Costa (https://github.com/victorock)"
+dependencies:
+    "awx.awx": ">=9.0.0"
+license:
+    - "GPLv3"
+tags:
+    - "ci"
+    - "cd"
+    - "pipeline"
+    - "tower"
+    - "webhook"
+    - "handler"
+repository: "https://www.github.com/victorock/ansible-collection-webhook"

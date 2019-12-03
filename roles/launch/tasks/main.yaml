@@ -1,0 +1,11 @@
+---
+- name: "launch: load spec file in 'tower_spec'"
+  include_vars:
+    file: "{{ git_store }}/.tower.yaml"
+    name: "tower_spec"
+
+- name: "tower: Launch Pipeline"
+  run_once: true
+  tower_workflow_launch:
+    name: "{{ pipeline.workflow }}"
+  when: "tower_webhook_payload.object_kind == tower_spec.pipeline.on"
