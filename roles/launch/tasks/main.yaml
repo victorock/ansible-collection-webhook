@@ -7,5 +7,7 @@
 - name: "tower: Launch Pipeline"
   run_once: true
   tower_workflow_launch:
-    name: "{{ pipeline.workflow }}"
-  when: "tower_webhook_payload.object_kind == tower_spec.pipeline.on"
+    name: "{{ pipeline.name }}"
+  loop: "{{ tower_spec.pipelines | selectattr('on', tower_webhook_payload.object_kind) | default([]) }}"
+  loop_control:
+    loop_var: "pipeline"
